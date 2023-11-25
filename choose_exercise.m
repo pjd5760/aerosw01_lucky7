@@ -3,7 +3,7 @@
 %% output : exercise, wcal
 %% output value(exercise) : Walk , Run, Cycle
 %% wcal : 원하는 칼로리
-
+%
 clear
 
 str = 'No';
