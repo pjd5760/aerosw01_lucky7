@@ -6,7 +6,7 @@
 
 clear
 
-str = 'No'
+str = 'No';
 while(1)
     if strcmp(str,'No')
         ec = menu('Choose a exercise','Walk','Run','Cycle');
