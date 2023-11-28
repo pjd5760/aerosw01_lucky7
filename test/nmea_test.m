@@ -15,8 +15,33 @@ for i = 1:length(nmea)
     if startsWith(nmea(i,1),'NMEA,$GPGGA')
         N = nmea(i,1);
         a = split(N,',');
-        location.time = [location.time a(3,1)];
-        location.lat = [location.lat a(4,1)];
-        location.log = [location.log a(5,1)];
+        time = a{3,1};
+        hours = str2num(time(1:2));
+        minutes = str2num(time(3:4));
+        seconds = str2num(time(5:end));
+        time_s = hours * 3600 + minutes * 60 + seconds;
+        location.time = [location.time time_s];
+        
+       
+
+        %% 지금 지하철 타고 오면서 찍어서 지하라 안찍힌 부분이 있는 거 같습니다.
+        %% 어쩔수 없이 if 문써서 일단 처리해놓긴 했는데 나중에 제대로 위도 경도 다 찍히면 if 없애면 될거 같습니다.
+        latitude = a{4,1};
+        if ~isempty(latitude)
+        degrees_lat = str2num(latitude(1:2));
+        minutes_lat = str2num(latitude(3:end));
+        latitute_new = degrees_lat + minutes_lat/60;
+        location.lat = [location.lat latitute_new];
+        end
+       
+
+       longitude = a{6,1};
+       if ~isempty(longitude)
+        degrees_log = str2num(longitude(1:3));
+        minutes_log = str2num(longitude(4:end));
+        longitude_new = degrees_log + minutes_log/60;
+        location.log = [location.log longitude_new];
+       end
     end
 end
+
