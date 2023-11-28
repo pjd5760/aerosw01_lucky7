@@ -15,8 +15,8 @@ for i = 1:length(nmea)
     if startsWith(nmea(i,1),'NMEA,$GPGGA')
         N = nmea(i,1);
         a = split(N,',');
-        location.time = [location.lat a(3,1)];
+        location.time = [location.time a(3,1)];
         location.lat = [location.lat a(4,1)];
-        location.log = [location.lat a(5,1)];
+        location.log = [location.log a(5,1)];
     end
 end
