@@ -25,7 +25,8 @@ for i = 1:length(nmea)
        
 
         %% 지금 지하철 타고 오면서 찍어서 지하라 안찍힌 부분이 있는 거 같습니다.
-        %% 어쩔수 없이 if 문써서 일단 처리해놓긴 했는데 나중에 제대로 위도 경도 다 찍히면 if 없애면 될거 같습니다.
+        %% 어쩔수 없이 if 문써서 일단 처리해놓긴 했는데 나중에 제대로 찍히면 지우면 될 것 같아요.
+        
         latitude = a{4,1};
         if ~isempty(latitude)
         degrees_lat = str2num(latitude(1:2));
@@ -45,3 +46,5 @@ for i = 1:length(nmea)
     end
 end
 
+fclose(fid);
+%% 위치 구글지도에 다 찍어봤는데 저 집오는길이랑 일치합니당.
