@@ -22,7 +22,7 @@ function varargout = main(varargin)
 
 % Edit the above text to modify the response to help main
 
-% Last Modified by GUIDE v2.5 29-Nov-2023 20:17:12
+% Last Modified by GUIDE v2.5 29-Nov-2023 23:34:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -141,3 +141,35 @@ function edit_title_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in pushbutton1.
+function pushbutton1_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+axis([126.881 126.887 37.485 37.5])
+image([126.881 126.887], [37.485 37.5], imread('map.png'));
+for i = 1:length(handles.location.lat)
+    plot(handles.location.log(i),handles.location.lat(i),'bo')
+    pause(0.01)
+    
+end
+
+% --- Executes on button press in pushbutton_data.
+function pushbutton_data_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton_data (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+[fn,pa] = uigetfile({'nmea_test.m'});
+cpath = pwd;
+cd(pa);
+nmea_test;
+
+eval('load location.mat');
+cd(cpath);
+handles.location = location;
+handles.output = hObject;
+guidata(hObject,handles);

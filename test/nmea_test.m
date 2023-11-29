@@ -1,9 +1,6 @@
 %%  test용 입니다.
 %% gnss 찍을 때 gnsslogger 프로그램에서 밑에 log nmea 키고 location 다 키고 찍었어요.
 %% 지하철 타고 오면서 찍어가지고 시간만 찍히고 경도 위도 안찍힌데 있는거 같아요.
-
-clear
-
 fid = fopen('all.nmea','r');
 nmea = textscan(fid,'%s');
 
@@ -47,4 +44,6 @@ for i = 1:length(nmea)
 end
 
 fclose(fid);
+
+save location location
 %% 위치 구글지도에 다 찍어봤는데 저 집오는길이랑 일치합니당.
