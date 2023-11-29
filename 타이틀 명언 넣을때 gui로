@@ -6,25 +6,25 @@ gaethingun = ["건강할때 건강을 지키는 것에는 실로 대단한 결�
 %시작부분에 추가하면 될듯
 
 rnd_number=rand(1);
-if rand<0.1
+if rnd_number<0.1
     set(handles.edit1,'String',gaethingun(1));
-elseif rand<0.2
+elseif rnd_number<0.2
     set(handles.edit1,'String',gaethingun(2));
-elseif rand<0.3
+elseif rnd_number<0.3
     set(handles.edit1,'String',gaethingun(3));    
-elseif rand<0.4
+elseif rnd_number<0.4
     set(handles.edit1,'String',gaethingun(4));
-elseif rand<0.5
+elseif rnd_number<0.5
     set(handles.edit1,'String',gaethingun(5));
-elseif rand<0.6
+elseif rnd_number<0.6
     set(handles.edit1,'String',gaethingun(6));
-elseif rand<0.7
+elseif rnd_number<0.7
     set(handles.edit1,'String',gaethingun(7));
-elseif rand<0.8
+elseif rnd_number<0.8
     set(handles.edit1,'String',gaethingun(8));
-elseif rand<0.9
+elseif rnd_number<0.9
     set(handles.edit1,'String',gaethingun(9));
-else rand<=1
+else rnd_number<=1
     set(handles.edit1,'String',gaethingun(10));
 end
 
