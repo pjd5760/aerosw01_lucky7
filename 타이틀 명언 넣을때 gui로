@@ -1,0 +1,30 @@
+gaethingun = ["건강할때 건강을 지키는 것에는 실로 대단한 결단이 필요하다 - 제러미 벤덤"...
+    ,"남들이 그만둘 때, 난 계속한다 - 라자르 안젤로프"...
+    ,"간단해요, 흔들리면 그건 지방이예요 - 아놀드 슈왈제네거"];
+%띵언 추가해야됨
+%개띵언 10개 넣고, 하단 handles.edit1 <<<<<<<이거를 title의 값으로 바꾸면 작동.
+%시작부분에 추가하면 될듯
+
+rnd_number=rand(1);
+if rand<0.1
+    set(handles.edit1,'String',gaethingun(1));
+elseif rand<0.2
+    set(handles.edit1,'String',gaethingun(2));
+elseif rand<0.3
+    set(handles.edit1,'String',gaethingun(3));    
+elseif rand<0.4
+    set(handles.edit1,'String',gaethingun(4));
+elseif rand<0.5
+    set(handles.edit1,'String',gaethingun(5));
+elseif rand<0.6
+    set(handles.edit1,'String',gaethingun(6));
+elseif rand<0.7
+    set(handles.edit1,'String',gaethingun(7));
+elseif rand<0.8
+    set(handles.edit1,'String',gaethingun(8));
+elseif rand<0.9
+    set(handles.edit1,'String',gaethingun(9));
+else rand<=1
+    set(handles.edit1,'String',gaethingun(10));
+end
+
