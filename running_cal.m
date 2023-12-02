@@ -1,61 +1,66 @@
-function burned_cal = running_cal(T,SPD,W)
-% total_burned_calories = running_cal(time,speed,body weight)
+function Burned_cal = running_cal(T,SPD,W)
+% 소모된 총 칼로리 = running_cal(측정된 시간,speed,몸무게)
 % burned_cal : 총 소모된 칼로리
 % T(sec) : 측정 후 지난 시간
 % SPD(km) : 측정 시각의 속도
 % W(kg) : 몸무게
 
-% script용도 주석
+% total_burned_calories 은 speed벡터 크기와 같다
+% 직접 speed구했다면 T벡터 크기가 하나 작음 speed구하려면 t2,t1필요함. 다르다면 53줄 수정 필요
+
+% script용도 주석 네이버 기준 80kg 60분 running 588kcal소모
 % clear;clc
-% T = 0:1:3600;
-% SPD = 12 * ones(1,length(T));
+% T = 1:1:3600;
+% SPD = 12 *ones(1,length(T));
 % W = 80;
 
+% MET 벡터 SPD크기와 같음
 % MET : Metabolic Equivalent of Task (MET)
 MET=[];
-for i = 1:length(SPD)
+burned_cal = 0;
+
+for i = 2:length(SPD)
     spd = SPD(i);
-    if spd>=17.5
+    if spd>=17.5     % 17.5km/h 달리기 MET:16.0
         met = 16.0; 
-    elseif spd>=16.1
+    elseif spd>=16.1 % 16.1km/h 달리기 MET:14.8
         met = 14.8;         
     elseif spd>=14.5
         met = 13.5;   
-    elseif spd>=12.9 
+    elseif spd>=12.9 % 12.9~14.5km/h 달리기 MET:12.3
         met = 12.3;
     elseif spd>=12.1
-        met = 11.6;
-    elseif spd>=10.8
+        met = 11.5;
+    elseif spd>=10.8 % 10.8~12.1km/h 달리기 MET:11.0
         met = 11.0;
     elseif spd>=9.7
         met = 10.2;
-    elseif spd>=8.4
+    elseif spd>=8.4  % 8.4~9.7km/h 달리기 MET:9.4
         met = 9.4;
-    elseif spd>=8.0
+    elseif spd>=8.0  % 8km/h 달리기 MET:8.0
         met = 8.0;
-    elseif spd>=6.4
+    elseif spd>=6.4  % 6.4km/h 달리기 MET:6.4
         met = 6.4;
-    elseif spd>=5.6
+    elseif spd>=5.6  
         met = 5.6;
-    elseif spd>=4.8
+    elseif spd>=4.8  % 4.8~5.6km/h 걷기 MET:4.8
         met = 4.8;
-    elseif spd>=3.2
+    elseif spd>=3.2  % 3.2km/h 걷기 MET:3.4
         met = 3.4;
-    elseif spd>=1.3
+    elseif spd>=1.3  % 집에서 걷기 MET:2.3
         met = 2.3;
     elseif spd>=0.5
-        met = 1;
+        met = 1.5;    % (앉기)독서,말하기 MET:1.5
     else
-        met = 0;
+        met = 1;
     end
     MET(i)=met;
+    dt_burned_cal = met*W*(T(i)-T(i-1))*(1/60)*(1/60);
+    burned_cal = burned_cal + dt_burned_cal;
+    Burned_cal(i) = burned_cal;
 end
-
-% total burned calories(kcal) = sum{각 활동별MET*체중*소비시간(min)/60(min)}
+end
 % https://e-jnh.org/DOIx.php?id=10.4163/jnh.2021.54.2.129#__ID_SECTION_2
-
-spantime = T(end)/(60*60); % T(sec)->T/60*60(h)
-total_MET = sum(MET); % 초(sec)마다 MET를 더함
-average_MET = (total_MET/i); % 평균MET(min)로 계산
-burned_cal = average_MET*W*spantime;
-end
+% total burned calories(kcal) = sum{각 활동별MET*체중*소비시간(min)/60(min)}
+% 1분당 소모한 칼로리(kcal) : 분당MET*체중*1(분)/60(분)
+% dT당 소모한 칼로리(kcal) : dT당MET*체중*{(t2-t1)sec*(1min/60sec)}/60min
