@@ -189,9 +189,18 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 
 axis([126.881 126.887 37.485 37.5])
 image([126.881 126.887], [37.485 37.5], imread('map.png'));
+
+% kcal = 0;
+% met = [5 4 8 7 9 5 6 9 7 4 4 4 4 4 4 5 5 5 5 7 5 7 5 7 5 7 5 8 8 8 8 8 8 8 8];
 for i = 1:length(handles.location.lat)
     plot(handles.location.log(i),handles.location.lat(i),'bo')
     pause(0.01)
+%   if i<25
+%   cal = met(i) * handles.wight / 60;
+%   kcal = kcal + cal
+%   kcal_new = num2str(kcal)
+%   set(handles.edit_burned_cal,'String',kcal_new)
+%   end
 end
 
 % --- Executes on button press in pushbutton_data.
