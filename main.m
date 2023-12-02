@@ -51,7 +51,44 @@ function main_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to main (see VARARGIN)
+gaethingun{1,1} = "건강할때 건강을 지키는 것에는 실로 대단한 결단이 필요하다 - 제러미 벤덤";
+gaethingun{2,1} = "남들이 그만둘 때, 난 계속한다 - 라자르 안젤로프";
+gaethingun{3,1} = "간단해요, 흔들리면 그건 지방이예요 - 아놀드 슈왈제네거";
+gaethingun{4,1} = "운동은 몸을 바꾸는 것뿐만 아니라 마음을 바꾸기도 한다. - 조셉 프리스트리";
+gaethingun{5,1} = "가장 큰 적은 나 자신의 내면의 나태함이다. - 윌리엄 셰익스피어";
+gaethingun{6,1} = "목표를 이루려면 우리는 희생을 해야하지만, 그 희생이 나에게 무엇인지를 알아야 한다. - 마하트마 간디";
+gaethingun{7,1} = "훌륭한 몸을 갖기 위해선 고생이 필요하다. 그러나 그 고생이 결국엔 보상받게 된다. - 마이클 조던";
+gaethingun{8,1} = "당신은 지금까지 얼마나 노력했느냐보다 얼마나 오래 노력했느냐가 더 중요하다. - 퍼시 실튼";
+gaethingun{9,1} = "당신이 할 수 있다고 믿든, 할 수 없다고 믿든, 그렇게 될 것이다. - 헨리 포드";
+gaethingun{10,1} = "건강한 마음은 건강한 몸에서 시작된다. - 미스터 T";
 
+rnd_number=rand(1);
+if rnd_number<0.1
+    set(handles.edit_title,'String',gaethingun{1,1});
+elseif rnd_number<0.2
+    set(handles.edit_title,'String',gaethingun{2,1});
+elseif rnd_number<0.3
+    set(handles.edit_title,'String',gaethingun{3,1});    
+elseif rnd_number<0.4
+    set(handles.edit_title,'String',gaethingun{4,1});
+elseif rnd_number<0.5
+    set(handles.edit_title,'String',gaethingun{5,1});
+elseif rnd_number<0.6
+    set(handles.edit_title,'String',gaethingun{6,1});
+elseif rnd_number<0.7
+    set(handles.edit_title,'String',gaethingun{7,1});
+elseif rnd_number<0.8
+    set(handles.edit_title,'String',gaethingun{8,1});
+elseif rnd_number<0.9
+    set(handles.edit_title,'String',gaethingun{9,1});
+else rnd_number<=1
+    set(handles.edit_title,'String',gaethingun{10,1});
+end
+
+load("choose__exercise.mat");
+set(handles.edit_wcal,'String',ce.wcal);
+handles.exercise = ce.exercise;
+handles.wight = ce.wight;
 
 % Choose default command line output for main
 handles.output = hObject;
@@ -82,6 +119,7 @@ function edit_burned_cal_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit_burned_cal as text
 %        str2double(get(hObject,'String')) returns contents of edit_burned_cal as a double
+
 
 
 % --- Executes during object creation, after setting all properties.
@@ -154,7 +192,6 @@ image([126.881 126.887], [37.485 37.5], imread('map.png'));
 for i = 1:length(handles.location.lat)
     plot(handles.location.log(i),handles.location.lat(i),'bo')
     pause(0.01)
-    
 end
 
 % --- Executes on button press in pushbutton_data.

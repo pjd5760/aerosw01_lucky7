@@ -112,6 +112,7 @@ ce.wcal = handles.wcal;
 ce.wight = handles.wight;
 save('choose__exercise','ce');
 close
+main
 
 % --- Executes on button press in pushbutton_walk.
 function pushbutton_walk_Callback(hObject, eventdata, handles)
