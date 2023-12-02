@@ -1,12 +1,13 @@
 function Burned_cal = running_cal(T,SPD,W)
-% 소모된 총 칼로리 = running_cal(측정된 시간,speed,몸무게)
-% burned_cal : 총 소모된 칼로리
-% T(sec) : 측정 후 지난 시간
-% SPD(km) : 측정 시각의 속도
-% W(kg) : 몸무게
+% Total_Burned_cal = running_cal(Time,speed,Body Wegiht)
+% Burned_cal : 총 소모된 칼로리(벡터)
+% T(sec) : 측정 후 지난 시간(벡터)
+% SPD(km) : 측정 시각의 속도(벡터)
+% W(kg) : 몸무게(스칼라)
 
+% 21013292 박재두
 % total_burned_calories 은 speed벡터 크기와 같다
-% 직접 speed구했다면 T벡터 크기가 하나 작음 speed구하려면 t2,t1필요함. 다르다면 53줄 수정 필요
+% 직접 speed구했다면 T벡터 크기가 하나 작음 speed구하려면 t2,t1필요함. 다르다면 59번째 줄 수정 필요
 
 % script용도 주석 네이버 기준 80kg 60분 running 588kcal소모
 % clear;clc
@@ -50,7 +51,7 @@ for i = 2:length(SPD)
     elseif spd>=1.3  % 집에서 걷기 MET:2.3
         met = 2.3;
     elseif spd>=0.5
-        met = 1.5;    % (앉기)독서,말하기 MET:1.5
+        met = 1.5;   % (앉기)독서,말하기 MET:1.5
     else
         met = 1;
     end
@@ -60,7 +61,7 @@ for i = 2:length(SPD)
     Burned_cal(i) = burned_cal;
 end
 end
-% https://e-jnh.org/DOIx.php?id=10.4163/jnh.2021.54.2.129#__ID_SECTION_2
 % total burned calories(kcal) = sum{각 활동별MET*체중*소비시간(min)/60(min)}
 % 1분당 소모한 칼로리(kcal) : 분당MET*체중*1(분)/60(분)
 % dT당 소모한 칼로리(kcal) : dT당MET*체중*{(t2-t1)sec*(1min/60sec)}/60min
+% https://e-jnh.org/DOIx.php?id=10.4163/jnh.2021.54.2.129#__ID_SECTION_2
