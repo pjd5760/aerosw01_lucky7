@@ -1,0 +1,35 @@
+gaethingun = ["건강할때 건강을 지키는 것에는 실로 대단한 결단이 필요하다 - 제러미 벤덤"...
+    ,"남들이 그만둘 때, 난 계속한다 - 라자르 안젤로프"...
+    ,"간단해요, 흔들리면 그건 지방이예요 - 아놀드 슈왈제네거","운동은 몸을 바꾸는 것뿐만 아니라 마음을 바꾸기도 한다. - 조셉 프리스트리",
+"가장 큰 적은 나 자신의 내면의 나태함이다. - 윌리엄 셰익스피어",""목표를 이루려면 우리는 희생을 해야하지만, 그 희생이 나에게 무엇인지를 알아야 한다. - 마하트마 간디"
+"훌륭한 몸을 갖기 위해선 고생이 필요하다. 그러나 그 고생이 결국엔 보상받게 된다. - 마이클 조던",
+"당신은 지금까지 얼마나 노력했느냐보다 얼마나 오래 노력했느냐가 더 중요하다. - 퍼시 실튼",
+"당신이 할 수 있다고 믿든, 할 수 없다고 믿든, 그렇게 될 것이다. - 헨리 포드",
+"건강한 마음은 건강한 몸에서 시작된다. - 미스터 T"];
+%띵언 추가해야됨
+%개띵언 10개 넣고, 하단 handles.edit1 <<<<<<<이거를 title의 값으로 바꾸면 작동.
+%시작부분에 추가하면 될듯
+
+rnd_number=rand(1);
+if rnd_number<0.1
+    set(handles.edit1,'String',gaethingun(1));
+elseif rnd_number<0.2
+    set(handles.edit1,'String',gaethingun(2));
+elseif rnd_number<0.3
+    set(handles.edit1,'String',gaethingun(3));    
+elseif rnd_number<0.4
+    set(handles.edit1,'String',gaethingun(4));
+elseif rnd_number<0.5
+    set(handles.edit1,'String',gaethingun(5));
+elseif rnd_number<0.6
+    set(handles.edit1,'String',gaethingun(6));
+elseif rnd_number<0.7
+    set(handles.edit1,'String',gaethingun(7));
+elseif rnd_number<0.8
+    set(handles.edit1,'String',gaethingun(8));
+elseif rnd_number<0.9
+    set(handles.edit1,'String',gaethingun(9));
+else rnd_number<=1
+    set(handles.edit1,'String',gaethingun(10));
+end
+

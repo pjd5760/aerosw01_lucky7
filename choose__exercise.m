@@ -22,7 +22,7 @@ function varargout = choose__exercise(varargin)
 
 % Edit the above text to modify the response to help choose__exercise
 
-% Last Modified by GUIDE v2.5 25-Nov-2023 21:18:11
+% Last Modified by GUIDE v2.5 27-Nov-2023 17:23:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -58,6 +58,7 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+menu('칼로리,몸무게는 숫자만 입력해주세요.','네');
 % UIWAIT makes choose__exercise wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
@@ -108,8 +109,10 @@ function pushbutton_ok_Callback(hObject, eventdata, handles)
 %ce = choose exercise
 ce.exercise = handles.exercise;
 ce.wcal = handles.wcal;
+ce.wight = handles.wight;
 save('choose__exercise','ce');
 close
+main
 
 % --- Executes on button press in pushbutton_walk.
 function pushbutton_walk_Callback(hObject, eventdata, handles)
@@ -134,3 +137,29 @@ function pushbutton_cycle_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.exercise = 'cycle';
 guidata(hObject,handles);
+
+
+
+function wight_Callback(hObject, eventdata, handles)
+% hObject    handle to wight (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of wight as text
+%        str2double(get(hObject,'String')) returns contents of wight as a double
+wg = get(hObject, 'String');
+wight = str2num(wg);
+handles.wight = wight;
+guidata(hObject,handles);
+
+% --- Executes during object creation, after setting all properties.
+function wight_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to wight (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
