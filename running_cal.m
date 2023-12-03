@@ -1,8 +1,9 @@
-function [dt_Burned_cal,Burned_cal] = running_cal(T,SPD,W)
-% [dt_Burned_cal,Burned_cal] = running_cal(Time,speed,Body Wegiht)
+function [time,dt_Burned_cal,Burned_cal] = running_cal(T,SPD,W)
+% [time,dt_Burned_cal,Burned_cal] = running_cal(Time,speed,Body Wegiht)
 % Burned_cal(행백터): 누적된 칼로리 소모량
 % dt_Burned_cal(행벡터): 순간 칼로리 소모량
 % 21013292 박재두
+
 
 % Burned_cal : 총 소모된 칼로리(벡터)
 % T(sec) : 측정 후 지난 시간(벡터)
