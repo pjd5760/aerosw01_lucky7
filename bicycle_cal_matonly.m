@@ -1,8 +1,9 @@
-function [dt_Burned_cal,Burned_cal] = walking_cal(T,SPD,W)
-% [dt_Burned_cal,Burned_cal] = walking_cal(Time,speed,Body Wegiht)
+function [dt_Burned_cal,Burned_cal] = bicycle_cal_matonly(T,SPD,W)
+% [dt_Burned_cal,Burned_cal] = bicycle_cal_matonly(Time,speed,Body Wegiht)
 % Burned_cal(행백터): 누적된 칼로리 소모량
 % dt_Burned_cal(행벡터): 순간 칼로리 소모량
 % 21013292 박재두
+% matlab전용
 
 % Burned_cal : 총 소모된 칼로리(벡터)
 % T(sec) : 측정 후 지난 시간(벡터)
@@ -15,28 +16,28 @@ function [dt_Burned_cal,Burned_cal] = walking_cal(T,SPD,W)
 % SPD = 12 *ones(1,length(T));
 % W = 80;
 
+% MET 벡터 SPD크기와 같음
 % MET : Metabolic Equivalent of Task (MET)
 MET=[];
 burned_cal = 0;
-
 for i = 2:length(SPD)
     spd = SPD(i);
-    if spd>=8.0     % 8km/h 달리기 MET:8.0
-        met = 8.0;
-    elseif spd>=7.2 % 7km/h 걷기 MET:6.9
-        met = 6.9;
-    elseif spd>=6.6 % 6.4km/h 달리기 MET:6.4
-        met = 5.8;
-    elseif spd>=4.8 % 4.8~5.6km/h 걷기 MET:4.8
-        met = 4.8;
-    elseif spd>=3.2 % 3.2km/h 걷기 MET:3.4
-        met = 3.4;
-    elseif spd>=1.3 % 집에서 걷기 MET:2.3
-        met = 2.3;
-    elseif spd>=0.5 % (앉기)독서,말하기 MET:1.5
-        met = 1.5;
+    if spd>=30
+        met = 9; 
+    elseif spd>=20
+        met = 8;         
+    elseif spd>=16
+        met = 5;   
+    elseif spd>=12
+        met = 4;
+    elseif spd>=8
+        met = 3;
+    elseif spd>=4
+        met = 2.5;
+    elseif spd>=2
+        met = 2;
     else
-        met = 1;
+        met = 1.0;
     end
     MET(i)=met;
     dt_burned_cal = met*W*(T(i)-T(i-1))*(1/60)*(1/60);

@@ -1,13 +1,13 @@
-function Burned_cal = running_cal(T,SPD,W)
-% Total_Burned_cal = running_cal(Time,speed,Body Wegiht)
+function [dt_Burned_cal,Burned_cal] = running_cal(T,SPD,W)
+% [dt_Burned_cal,Burned_cal] = running_cal(Time,speed,Body Wegiht)
+% Burned_cal(행백터): 누적된 칼로리 소모량
+% dt_Burned_cal(행벡터): 순간 칼로리 소모량
+% 21013292 박재두
+
 % Burned_cal : 총 소모된 칼로리(벡터)
 % T(sec) : 측정 후 지난 시간(벡터)
 % SPD(km) : 측정 시각의 속도(벡터)
 % W(kg) : 몸무게(스칼라)
-
-% 21013292 박재두
-% total_burned_calories 은 speed벡터 크기와 같다
-% 직접 speed구했다면 T벡터 크기가 하나 작음 speed구하려면 t2,t1필요함. 다르다면 59번째 줄 수정 필요
 
 % script용도 주석 네이버 기준 80kg 60분 running 588kcal소모
 % clear;clc
@@ -15,7 +15,6 @@ function Burned_cal = running_cal(T,SPD,W)
 % SPD = 12 *ones(1,length(T));
 % W = 80;
 
-% MET 벡터 SPD크기와 같음
 % MET : Metabolic Equivalent of Task (MET)
 MET=[];
 burned_cal = 0;
@@ -57,6 +56,7 @@ for i = 2:length(SPD)
     end
     MET(i)=met;
     dt_burned_cal = met*W*(T(i)-T(i-1))*(1/60)*(1/60);
+    dt_Burned_cal(i) = dt_burned_cal;
     burned_cal = burned_cal + dt_burned_cal;
     Burned_cal(i) = burned_cal;
 end
