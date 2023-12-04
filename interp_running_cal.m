@@ -60,7 +60,7 @@ for i = 2:length(SPD)
     else
         met = 1;
     end
-    dt_burned_cal = met*W*(T(i)-T(i-1))*(1/60)*(1/60);
+    dt_burned_cal = met*W*(new_t(i) - new_t(i-1))*(1/60)*(1/60);
     dt_Burned_cal(i) = dt_burned_cal;
     burned_cal = burned_cal + dt_burned_cal;
     Burned_cal(i) = burned_cal;
