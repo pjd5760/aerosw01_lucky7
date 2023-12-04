@@ -1,5 +1,5 @@
-function [time,dt_Burned_cal,Burned_cal] = running_cal(T,SPD,W)
-% [time,dt_Burned_cal,Burned_cal] = running_cal(Time,speed,Body Wegiht)
+function [time,dt_Burned_cal,Burned_cal] = interp_running_cal(T,SPD,W)
+% [time,dt_Burned_cal,Burned_cal] = interp_running_cal(Time,speed,Body Wegiht)
 % Burned_cal(행백터): 누적된 칼로리 소모량
 % dt_Burned_cal(행벡터): 순간 칼로리 소모량
 % 21013292 박재두
@@ -15,8 +15,14 @@ function [time,dt_Burned_cal,Burned_cal] = running_cal(T,SPD,W)
 % SPD = 12 *ones(1,length(T));
 % W = 80;
 
+% 보간법 사용
+new_t = 1:1:T(end);
+time = new_t;
+new_speed = interp1(T, SPD, new_t);
+
 % MET : Metabolic Equivalent of Task (MET)
-time = T;
+dt_Burned_cal = zeros(1, length(new_speed));
+Burned_cal = zeros(1, length(new_speed));
 burned_cal = 0;
 
 for i = 2:length(SPD)

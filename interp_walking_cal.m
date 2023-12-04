@@ -1,5 +1,5 @@
-function [time, dt_Burned_cal, Burned_cal] = walking_cal(T,SPD,W)
-% [time, dt_Burned_cal, Burned_cal] = walking_cal(Time, speed, Body Weight)
+function [time, dt_Burned_cal, Burned_cal] = interp_walking_cal(T, SPD, W)
+% [time, dt_Burned_cal, Burned_cal] = interp_walking_cal(Time, speed, Body Weight)
 % Burned_cal: 누적된 칼로리 소모량
 % dt_Burned_cal: 순간 칼로리 소모량
 % 21013292 박재두
@@ -12,15 +12,21 @@ function [time, dt_Burned_cal, Burned_cal] = walking_cal(T,SPD,W)
 % script 용도 주석 네이버 기준 80kg 60분 running 588kcal 소모
 % clear;clc
 % T = 1:1:3600;
-% SPD = 12 * ones(1, length(T));
+% SPD = 12 * rand(1, length(T));
 % W = 80;
 
+% 보간법 사용
+new_t = 1:1:T(end);
+time = new_t;
+new_speed = interp1(T, SPD, new_t);
+
 % MET: Metabolic Equivalent of Task (MET)
-time = T;
+dt_Burned_cal = zeros(1, length(new_speed));
+Burned_cal = zeros(1, length(new_speed));
 burned_cal = 0;
 
-for i = 2:length(SPD)
-    spd = SPD(i);
+for i = 2:length(new_speed)
+    spd = new_speed(i);
     if spd >= 8.0 % 8km/h 달리기 MET:8.0
         met = 8.0;
     elseif spd >= 7.2 % 7km/h 걷기 MET:6.9
@@ -38,7 +44,8 @@ for i = 2:length(SPD)
     else
         met = 1;
     end
-    dt_burned_cal = met * W * (T(i) - T(i-1)) * (1/60) * (1/60);
+
+    dt_burned_cal = met * W * (new_t(i) - new_t(i-1)) * (1/60) * (1/60);
     dt_Burned_cal(i) = dt_burned_cal;
     burned_cal = burned_cal + dt_burned_cal;
     Burned_cal(i) = burned_cal;
