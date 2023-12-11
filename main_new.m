@@ -80,11 +80,28 @@ load("choose__exercise.mat");
 
 handles.exercise = ce.exercise;
 handles.wight = ce.wight;
-handles.m=load('GPS.mat', 'm');
 
+if strcmp(handles.exercise, 'walk')
+    handles.m=load('GPS_walking.mat', 'm');
+    [lat,lon,t1,spd] = poslog(handles.m.m);
+    [a,t] = accellog(handles.m.m);  %모바일 센서 데이터를 순서대로 변수 지정
+    [time,dt_Burned_cal,Burned_cal] = interp_walking_cal(t1,spd,handles.wight);
+elseif strcmp(handles.exercise, 'run')
+    handles.m=load('GPS_running.mat', 'm');
+    [lat,lon,t1,spd] = poslog(handles.m.m);
+    [a,t] = accellog(handles.m.m);  %모바일 센서 데이터를 순서대로 변수 지정
+    [time,dt_Burned_cal,Burned_cal] = interp_running_cal(t1,spd,handles.wight);
+else
+    handles.m=load('GPS_bicycle.mat', 'm');
+    [lat,lon,t1,spd] = poslog(handles.m.m);
+    [a,t] = accellog(handles.m.m);  %모바일 센서 데이터를 순서대로 변수 지정
+    [time,dt_Burned_cal,Burned_cal] = interp_bicycle_cal(t1,spd,handles.wight);
+end
+
+handles.lat=lat;
+handles.lon=lon;
 
 %%%%%%%%%%%%%%%%%%%%%% 걸음 수 표시를 위한 세팅
-[a,t] = accellog(handles.m.m); %모바일 센서 데이터를 순서대로 변수 지정
 %%%주의%%%
 %GPS.m 파일과 t 값이 달라질 수 있음. 함수 사용시 t 사이즈 유의할 것
 %accellog로 t 변수 지정 시, t1 t2등 다른 t 사용 추천
@@ -113,16 +130,8 @@ else
     set(handles.edit_step,'String',num2str(numSteps));
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-[lat,lon,t1,spd] = poslog(handles.m.m);
 
 
-if strcmp(handles.exercise, 'walk')
-    [time,dt_Burned_cal,Burned_cal] = interp_walking_cal(t1,spd,handles.wight);
-elseif strcmp(handles.exercise, 'run')
-    [time,dt_Burned_cal,Burned_cal] = interp_running_cal(t1,spd,handles.wight);
-else
-    [time,dt_Burned_cal,Burned_cal] = interp_bicycle_cal(t1,spd,handles.wight);
-end
 handles.time = time;
 handles.dt_Burned_cal = dt_Burned_cal;
 handles.Burned_cal = Burned_cal;
@@ -260,10 +269,10 @@ for k = 1:nBins
     % Keep only the lat/lon values which match the current bin. Leave the 
     % rest as NaN, which are interpreted as breaks in the line segments.
     %예제에서 NaN을 사용하였지만, lat, lon 값의 finite 지정 문제로 ones에 lat, lon 값 대입
-    latValid = lat.*ones(1, length(lat));
+    latValid = NaN(1, length(lat));
     latValid(spdBins==k) = lat(spdBins==k);
 
-    lonValid = lon.*ones(1, length(lon));
+    lonValid = NaN(1, length(lon));
     lonValid(spdBins==k) = lon(spdBins==k);    
 
     % To make the path continuous despite being segmented into different
@@ -288,8 +297,8 @@ end
 
 wm = webmap('Open Street Map');
 
-mwLat = 37.54614;
-mwLon = 127.07387;
+mwLat = handles.lat(1);
+mwLon = handles.lon(1);
 name = '출발지점';
 iconDir = fullfile(matlabroot,'toolbox','matlab','icons');
 iconFilename = fullfile(iconDir, 'matlabicon.gif');
