@@ -27,12 +27,12 @@ new_speed = interp1(T, SPD, new_t); % new_speed(행벡터)
 
 open_system('BICYCLE');
 % 모델의 StopTime을 무한대로 설정
-set_param('BICYCLE', 'StopTime', 'length(new_speed)');
+set_param('BICYCLE', 'StopTime', num2str(length(new_speed)));
 
 out=sim('BICYCLE');
 MET = (out.MET);
 MET = MET(1,:);
-MET = [1,MET];
+MET = [eps,MET];
 %%
 
 % MET : Metabolic Equivalent of Task (MET)
@@ -46,7 +46,7 @@ for i = 2:length(new_speed)
     burned_cal = burned_cal + dt_burned_cal;
     Burned_cal(i) = burned_cal;
 end
-end
+% end
 % total burned calories(kcal) = sum{각 활동별MET*체중*소비시간(min)/60(min)}
 % 1분당 소모한 칼로리(kcal) : 분당MET*체중*1(분)/60(분)
 % dT당 소모한 칼로리(kcal) : dT당MET*체중*{(t2-t1)sec*(1min/60sec)}/60min
